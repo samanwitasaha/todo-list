@@ -2,7 +2,9 @@
 # To-Do List App
 
 A simple and responsive To-Do List web application built using HTML, CSS, and JavaScript.
+## Live Demo
 
+🔗 [View the live project here](https://samanwitasaha.github.io/todo-list/)
 ## Features
 
 - Add new tasks
