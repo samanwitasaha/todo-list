@@ -20,22 +20,29 @@ function saveTasks() {
 // Display tasks
 function displayTasks() {
     taskList.innerHTML = "";
+
+    // Empty state
     if (tasks.length === 0) {
-    const emptyMessage = document.createElement("p");
-    emptyMessage.textContent = "No tasks yet. Add one above! 📝";
-    emptyMessage.classList.add("empty-message");
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "No tasks yet. Add one above! 📝";
+        emptyMessage.classList.add("empty-message");
 
-    taskList.appendChild(emptyMessage);
-    return;
-}
+        taskList.appendChild(emptyMessage);
+        taskCounter.textContent = "0 tasks • 0 completed • 0 remaining";
+
+        return;
+    }
+
+    // Count tasks
     const completedCount = tasks.filter(function (task) {
-    return task.completed;
-}).length;
+        return task.completed;
+    }).length;
 
-const remainingCount = tasks.length - completedCount;
+    const remainingCount = tasks.length - completedCount;
 
-taskCounter.textContent =
-    `${tasks.length} tasks • ${completedCount} completed • ${remainingCount} remaining`;
+    taskCounter.textContent =
+        `${tasks.length} tasks • ${completedCount} completed • ${remainingCount} remaining`;
+
 
     tasks.forEach(function (task, index) {
 
@@ -86,7 +93,6 @@ taskCounter.textContent =
             );
 
             if (newTaskText !== null && newTaskText.trim() !== "") {
-
                 tasks[index].text = newTaskText.trim();
 
                 saveTasks();
@@ -100,6 +106,57 @@ taskCounter.textContent =
         deleteButton.textContent = "Delete";
 
         deleteButton.addEventListener("click", function () {
+            tasks.splice(index, 1);
+
+            saveTasks();
+            displayTasks();
+        });
+
+
+        // Three-dot menu button
+        const menuButton = document.createElement("button");
+        menuButton.textContent = "⋮";
+        menuButton.classList.add("menu-button");
+
+
+        // Action menu
+        const actionMenu = document.createElement("div");
+        actionMenu.classList.add("action-menu");
+
+
+        // Put Complete, Edit and Delete inside menu
+        actionMenu.appendChild(completeButton);
+        actionMenu.appendChild(editButton);
+        actionMenu.appendChild(deleteButton);
+
+
+        // Open or close menu
+        menuButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            actionMenu.classList.toggle("show-menu");
+        });
+
+
+        // Container for three-dot button and menu
+        const actions = document.createElement("div");
+        actions.classList.add("task-actions");
+
+        actions.appendChild(menuButton);
+        actions.appendChild(actionMenu);
+
+
+        // Add text and menu to task
+        listItem.appendChild(taskTextElement);
+        listItem.appendChild(actions);
+
+        taskList.appendChild(listItem);
+    });
+}
+        // Delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", function () {
 
             tasks.splice(index, 1);
 
@@ -108,17 +165,7 @@ taskCounter.textContent =
         });
 
 
-        // Add everything to the list item
-        listItem.appendChild(taskTextElement);
-        listItem.appendChild(completeButton);
-        listItem.appendChild(editButton);
-        listItem.appendChild(deleteButton);
-
-        taskList.appendChild(listItem);
-    });
-}
-
-
+    
 // Add new task
 addButton.addEventListener("click", function () {
 

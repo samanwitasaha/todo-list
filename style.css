@@ -92,10 +92,11 @@ h1 {
 #taskList {
     list-style: none;
 }
-
 #taskList li {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 15px;
     padding: 16px;
     margin-bottom: 12px;
     background: #f7f8fa;
@@ -107,14 +108,11 @@ h1 {
 #taskList li:hover {
     transform: translateY(-2px);
 }
-
-#taskList li:hover {
-    transform: translateY(-2px);
-}
-
 #taskList li span {
     flex: 1;
-    font-size: 15px;
+    min-width: 0;
+    overflow-wrap: normal;
+    word-break: normal:
 }
 
 #taskList li button {
@@ -239,4 +237,75 @@ body.dark-mode #darkModeButton {
 }
 body.dark-mode .empty-message {
     color: #aaa;
+}
+/* Three-dot menu */
+
+.task-actions {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.menu-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.menu-button:hover {
+    background: #e5e7eb;
+}
+
+.action-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 45px;
+    width: 130px;
+    padding: 8px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+}
+
+.action-menu.show-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.action-menu button {
+    width: 100%;
+    margin: 0;
+    padding: 9px 12px;
+    text-align: left;
+    border:none;
+    background: transparent;
+    color: #333;
+    cursor: pointer;
+}
+.action-menu button:hover {
+    background: #f0f0f0;
+}
+body.dark-mode .menu-button {
+    color: white;
+}
+
+body.dark-mode .menu-button:hover {
+    background: #3a3d40;
+}
+
+body.dark-mode .action-menu {
+    background: #303336;
+    border-color: #444;
+}
+
+body.dark-mode .action-menu button {
+    color: white;
 }
